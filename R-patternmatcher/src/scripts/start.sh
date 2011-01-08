@@ -1,9 +1,11 @@
 #!/bin/bash
-cd "`dimame $0`/.."
+cd "`dirname $0`/.."
+# include timeSeries location... because this is default CRAN location...
+orglibhome='/home/konrad/R/x86_64-pc-linux-gnu-library/2.11'
 apphome="`pwd`"
 binhome="`pwd`/bin"
 libhome="`pwd`/lib"
-libhome_esc=`echo $libhome | sed's/\//\\\\\//g'`
+libhome_esc=`echo c\(\'$orglibhome\', \'$libhome\'\) | sed 's/\//\\\\\//g'`
 allowrun=O
 currenthost=`hostname`
 allowedhosts='<ALLOWED_HOSTS>'

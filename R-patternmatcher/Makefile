@@ -5,6 +5,9 @@ PROD-HOSTS ='prod-host'
 REPO = localhost:/u/rlib
 STAGEDIR = dist/stage/rlib
 
+deploy_dev: clean test check build dist dev_scripts package
+deploy_prod: clean test check build dist prod_scripts package
+
 build: clean
 	mkdir -p build
 	cp -r src/* build/
@@ -43,8 +46,8 @@ package:
 	done
 	# create Rprofile file
 	cd $(STAGEDIR)/lib; \
-	echo ".First <- functiono {" >../bin/.Rprofile.template; \
-	echo "  .libPaths('<LIB_HOME>')" >> ../bin/.Rprofile.template; \
+	echo ".First <- function() {" >../bin/.Rprofile.template; \
+	echo "  .libPaths(<LIB_HOME>)" >> ../bin/.Rprofile.template; \
 	for x in `ls | grep -v "\.css$$"`; do \
 		echo "  library('$$x')" >> ../bin/.Rprofile.template; \
 	done; \
@@ -77,9 +80,6 @@ clean:
 
 rsync:
 	rsync -r dist/rlib.tar.gz $(REPO)/src
-
-deploy_dev: clean test check build dist dev_scripts package
-deploy_prod: clean test check build dist prod_scripts package
 
 .PHONY: build test configure deploy clean dev_scripts prod_scripts dist package
 
