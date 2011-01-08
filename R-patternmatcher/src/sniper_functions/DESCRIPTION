@@ -1,0 +1,12 @@
+Package: SniperFunctions
+Type:Package
+Title: Sniper Functions
+Version: 1.0.0
+Date: 2011-01-05
+Author: KS
+Maintainer: <ks@me.com>
+Description: SinperFunctions
+Depends: R(>= 2.9.2), timeSeries
+License: What license is it under?
+LazyLoad: yes
+
